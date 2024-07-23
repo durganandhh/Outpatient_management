@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Doctor Selection</title>
+<style>
+
+    /* #searchContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#searchInput {
+    padding: 5px;
+    width: 200px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.close-btn {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+} */
+
+    .modal-header {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: relative;
+    background-color: #99edfc; /* Ensure the close button is positioned correctly */
+}
+
+.modal-header .close {
+    position: absolute;
+    right: 10px; /* Position the close button to the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+     body {
+        background-color: rgb(223, 255, 255);
+    }
+    header {
+        padding: 5px;
+        font-size: 20px;
+        margin-left: 100px;
+        font-size: 2em;
+    }
+    .comp {
+        width: 81%;
+        position: absolute;
+        margin-left: 250px;
+        background-color: rgb(214, 240, 250);
+    }
+    * {
+        /* background-color: #DDFFE7; */
+        /* background-color: #98D7C2; */
+    }
+    h4 {
+        margin-bottom: 100px;
+    }
+    .modal-content {
+        border-radius: 2px;
+        border-width: 5px; /* Set the border width */
+        border-style: solid; /* Set the border style (solid, dashed, etc.) */
+        border-color: #000; /* Set the border color */
+    }
+    .form-group {
+        margin-bottom: 15px; /* Add some spacing between form groups */
+    }
+    label {
+        display: inline-block;
+        width: 100px; /* Set a fixed width for labels */
+        font-weight: bold;
+    }
+    input[type="date"],
+    select {
+        width: 200px; /* Set a width for input fields and select dropdowns */
+        padding: 5px;
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+    button.btn2, button.btn3 {
+        width: 150px; /* Set width for buttons */
+        padding: 5px;
+        margin: 0 auto;
+        display: block;
+        border-radius: 4px;
+    }
+    .btn1 {
+        display: block;
+        padding: 8px 20px;
+        font-size: 16px;
+        text-align: center;
+        margin: 0 auto; 
+        text-decoration: none;
+        color:black;
+        /* background-color: #007bff;  */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn1:hover {
+        background-color: #bad7f7; /* Button color on hover */
+    }
+    .btn1:focus {
+        outline: none; /* Remove focus outline */
+    }
+    .hidden {
+    display: none;
+}
+
+</style>
+</head>
+<body>
+ 
+<div class="comp">
+    <a href="#" class="btn1" id="add" data-toggle="modal" data-target="#addModal">Click here to make an appointment</a>
+    <a href="#" class="btn1" id="view-history">Treatment history</a>
+
+    <input type="text" id="searchInput" class="hidden" placeholder="Search by Month, Year, or Doctor Name">
+ 
+    
+
+    <table id='example'  class="table table-bordered table-striped dataTable no-footer dtr-inline" style="background-color:#99edfc">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Specialist</th>
+                <th>Doctor name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+ 
+ 
+</div>
+<div class="modal fade" id="reportModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Doctor Report</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="reportModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" role="dialog" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book appointment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        <div class="modal-body" style="background-color:#d7f7f5">
+                <form onsubmit="return false;" id="edit-form">
+                    <div class="form-group" style="background-color:#d7f7f5">
+                        <label for="specialist">Specialist:</label>
+                        <select id="specialist" name="specialist" required>
+                            <option default selected disabled>Select specialist</option>
+                            <option value="Cardiologist">Cardiologist</option>
+                            <option value="Endocrinologist">Endocrinologist</option>
+                            <option value="ENT">ENT</option>
+                            <option value="Dermatologist">Dermatologist</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Neurologist">Neurologist</option>
+                            <option value="Pulmonology">Pulmonology</option>
+                        </select>
+                        <br>
+                    </div>
+                    
+                    <div class="form-group" id="doctor-group">
+                        <label for="doctor">Doctor:</label>
+                        <select id="doctorList" name="doctor" required>
+                            <option default selected disabled>Select doctor</option>
+                        </select><br>
+                    </div> 
+                    
+                    <div class="form-group" id="date-slot-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required><br>
+                        <br>
+                        <label for="slot">Slot:</label>
+                        <select id="slot" name="slot" required>
+                            <option default selected disabled>Select slot</option>
+                        </select><br>
+                    </div>
+                    
+               <button type="submit" class="btn2" id="add-submit" style="width:120px;  margin: 0 140px;" onclick="register()">Submit</button>
+                    
+         
+         <!-- <button type="button" class="btn3" style="background-color:rgb(15, 216, 223); width:120px; margin: 0 80px;" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="working.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Feedback Page</title>
+    <style>
+        body {
+             margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            
+        }
+        .container {
+            margin: 0;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .feedback-item {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Admin Feedback Page</h1>
+    <div id="feedbackList"></div>
+</div>
+
+<script>      
+    $(document).ready(function() {
+    fetchFeed();
+});
+    
+    function fetchFeed() {
+    const feedbackListDiv = document.getElementById('feedbackList');
+    
+    fetch('http://localhost:8080/feedBack/getFeedBack')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched data:', data);
+            
+            if (data.length === 0){
+                const noFeedbackMessage = document.createElement('p');
+                noFeedbackMessage.textContent = 'No feedback available.';
+                feedbackListDiv.appendChild(noFeedbackMessage);
+            } else {
+                data.forEach(feedback => {
+                    const feedbackItemDiv = document.createElement('div');
+                    feedbackItemDiv.classList.add('feedback-item');
+                    feedbackItemDiv.innerHTML = `
+                        <p><strong>userId:</strong> ${feedback.userId}</p>
+                        <p><strong>Category:</strong> ${feedback.feedBackType}</p>
+                        <p><strong>Description:</strong> ${feedback.feedBackDesc}</p>
+                    `;
+                    feedbackListDiv.appendChild(feedbackItemDiv);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching feedback:', error);
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'An error occurred while fetching feedback.';
+            feedbackListDiv.appendChild(errorMessage);
+        });
+}
+</script>

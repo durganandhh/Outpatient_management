@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Outpatient Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="index.css">
+           
+    </head>
+    <body>
+        <header id="home">
+            <img src="image\sym.png" width="120px" height="130px" style="display:inline-block">
+            <h1 style="display:inline-block">VITALITY HOSPITAL</h1>
+
+        </header>
+        <nav >
+            <ul>
+                    <li><a href="logintry.html">LOGIN</a><li> 
+                    <li><a href="#contacts">CONTACT</a></li>    
+                    <li><a href="#about">ABOUT US</a></li>  
+                    <li><a href="#slideshow">HOME</a></li>
+            </ul>
+        </nav>
+        <div>
+            <div class="image-slideshow"  id="slideshow">
+
+                <div class="image-wrapper">
+
+                    <div class="image">
+                            <img src="image/xray.jpg"width="100%">
+                    </div>
+                    <div class="image">
+                            <img src="image/doctor.jpg"width="100%">
+                    </div>
+                    <div class="image">
+                            <img src="image/discussion.jpg"width="100%">
+                    </div>
+                    <div class="image">
+                            <img src="image/w4.png"width="100%">
+                    </div>
+                    <div class="image">
+                            <img src="image/w1.png"width="100%">
+                    </div>
+
+                </div>
+
+            </div>
+
+         <div class="overlap">
+
+                <div class="emergency">
+
+                    <div class="icn">
+                        <i class="material-icons" style="font-size:50px">phone_in_talk</i>
+                    </div>
+
+                    <h6 class="icnhead">EMERGENCY CASES</h6>
+                    <h5 class="icninfo"> Please  feel free to contact our team for any general or medical enquiry</h5>
+                    <h6 class="icnhead">90080070011</h6>
+
+                </div>
+
+                <div class="book">
+                    <div class="icn">
+                       <i class="material-icons">add_location</i>
+                    </div>
+                    <h6 class="icnhead">VISIT HOSPITAL</h6>
+                    <h5 class="icninfo"> Book an appointment and consult with our expert doctors</h5>
+                    <button class="btnvisit" id="visitButton">visit now</button>
+                </div>
+
+
+            </div>
+
+            
+            <div class="aboutus" id="about">
+                <div class="l_abt">
+                    <img src="image/abt.png" style="height:300px; padding:10px; border-radius: 20px;">
+                </div>
+                <div class="r_abt">
+                    <h2 style="font-size:40px; color: black;">Vitality hospital was initially started as coimbatore  institute of gastrointestinal Endo-Surgery in the year in the year 1991 by Dr.Subramanian</h2><br>
+                    <p style="color:black; white-space: pre-wrap;">    Over the next 10 years, the institute grew in stature to become the sought-after destination for laparoscopic surgery and gastroenterology. Sensing the importance of providing comprehensive gastro care, Dr.Palanivelu established Asia’s first exclusive gastroenterology and advanced laparoscopic surgery centre, GEM Hospital, in 2001.In fact, the name GEM Hospital was derived from Gastroenterology and Medical Centre and is true to its name.The hospital provides world-class gastro care under one roof</p>
+                </div>
+                
+                
+            </div>
+            <div id="contacts" >
+                <h2>Contact Us</h2>
+                <p>For any inquiries or assistance, feel free to reach out to us:</p>
+                <ul>
+                    <li>Phone: 90080070011</li>
+                    <li>Email: info@vitalityhospital.com</li>
+                    <li>Address: 123 Hospital St, City, Country</li>
+                </ul>
+            </div>
+           
+        </div>
+     
+        <script>
+                const imageWrapper = document.querySelector('.image-wrapper');
+                const images = document.querySelectorAll('.image');
+                let translateXValue = 0;
+                let currentImage = 0;
+                let imageWidth = images[0].offsetWidth;
+                setInterval(() => {
+                    currentImage++;
+                    translateXValue -= imageWidth;
+                    imageWrapper.style.transition = 'transform 1s ease-in-out';
+                    imageWrapper.style.transform = `translateX(${translateXValue}px)`;
+                    if (currentImage >= images.length - 1) {
+                        setTimeout(() => {
+                            translateXValue = 0;
+                            imageWrapper.style.transition = 'none';
+                            imageWrapper.style.transform = `translateX(${translateXValue}px)`;
+                            currentImage = 0;
+                        }, 2000);
+                    }
+                }, 4000);
+        
+            
+                document.getElementById('visitButton').addEventListener('click',function(){
+                    window.location.href = 'logintry.html';
+                });
+           
+        </script>
+      
+      
+    </body>
+ 
+</html>
+

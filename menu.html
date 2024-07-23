@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>User Dashboard</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .nav-link{
+            color: #374047;
+            font-size:18px;
+            font-family:calibri;
+            margin:2px;
+            padding:10px;
+        }
+        .nav-link:hover{
+            color: #374047;
+        }
+        .dash {
+            height: 100%;
+            width: 17%;
+            float: left;
+            background-color:#98D7C2;
+            padding-top: 75px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        nav {
+            background-color:#DDFFE7;
+            margin-left: 218px;
+            width: 1317px;
+            height: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .nav-link.active{
+            background-color:white !important;
+            color: #c39466 !important;
+            text-decoration:none;
+        } 
+        .content{
+            background-color: yellow;
+            height:100%;
+            margin:0 0; 
+            
+        }
+        .register{
+              padding: 20px;
+              margin-top: 30px;
+              margin-left: 500px;
+        }
+       
+        
+        
+        
+    </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        </head>
+    </head>
+    <body>
+        <div class="dash">
+            <hr style="width:90%">
+            <a href="#" class="nav-link "><i class="material-icons" style="vertical-align: middle; ">dashboard</i>Dashboard</a>
+            
+            <a href="#" class="nav-link mydetails "><i class="material-icons" style="vertical-align: middle;">person</i>my details</a>
+
+
+            <a href="#" class="nav-link appointment"><i class="material-icons" style="vertical-align: middle; ">apartment</i>appointment</a>
+
+            <!-- <a href="#" class="nav-link"><i class="material-icons" style="vertical-align: middle; ">person</i>Treatment history</a> -->
+
+            <a href="#" class="nav-link feedback" id='profile'><i class="material-icons" style="vertical-align: middle; ">event_available</i>Feedback</a>
+
+            <!-- <a href="#" class="nav-link " id='profile'><i class="material-icons" style="vertical-align: middle; ">key</i>Change Password</a> -->
+
+            <a href="./logintry.html" onclick="showConfirmation(event)" class="nav-link " id='logout'><i class="material-icons" style="vertical-align: middle; ">logout</i>Logout</a>
+        </div>
+        <div class="insrt">
+
+        </div>
+       
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script src="menu.js">
+
+
+
+    
+</script>
+<!-- <script>
+function handleNavClick(event) {
+    event.preventDefault();
+    const linkId = event.currentTarget.id;
+    window.location.href = window.location.origin + window.location.pathname + '?' + linkId;
+}
+</script> -->
+        </body>
+</html>
+

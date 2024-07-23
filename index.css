@@ -1,0 +1,164 @@
+html{
+    scroll-behavior:smooth;
+}
+*{
+    margin:0px;
+    padding:0px;
+}
+body {
+    background-color: #98D7C2;
+    padding-top: 110px; 
+}
+header{
+    width:100%;
+    height:80px;
+    background: -webkit-linear-gradient(left, #DDFFE7, #98D7C2, #167D7F, #29A0B1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+} 
+h1 {
+    margin-left:150px;
+    position: absolute;
+    margin-top: 18px;
+    color: black;
+}
+nav{
+    background-color:#DDFFE7;
+    width:100%;
+    padding:7px;
+    height: 30px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 1000; 
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+nav li{
+    display: inline-block;
+    float: right;
+    margin-right:40px;
+    margin-top: 10px;
+}
+.slide{
+   width:100%;
+   height:auto;
+   background-color: red;
+}
+.image-slideshow {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    width:100%;
+    max-height: 500px;
+    position:absolute;
+    display:inline-block;
+}
+.image-wrapper {
+    display: flex;
+    animation: slide 50s infinite;
+    width:100%;
+    max-height: 500px;
+}
+.image{
+    flex-shrink:0;
+    transition: transform 1s;
+    width:100%;
+    height: auto; 
+    max-height: 500px;
+}
+.about{
+    background-color: red;
+    width:100%;
+    height: 300px;
+}
+.overlap{
+    width:900px;
+    height:300px;
+    background-color: white;
+    position:absolute;
+    margin-left:230px;
+    margin-top: 500px;
+    color: white;
+}
+.emergency{
+    width:49.5%;
+    height: 300px;
+    display: inline-block;
+    border:1px solid white;
+    float:left;
+    background-image:linear-gradient(36deg,#167D7F, #98D7C2);
+    font-size: 20px;
+}
+.book{
+    width:50%;
+    height: 300px;
+    display: inline-block;
+    background-color:white;
+    border:1px solid white;
+    float:right;
+    background-image:linear-gradient(36deg,#98D7C2,#167D7F);
+    font-size: 20px;
+}
+.icn{
+    height:auto;
+    width:100%;
+}
+.icnhead{
+    padding: 14px 14px;
+    font-size: 2em;
+}
+.icninfo{
+    padding: 10px 10px;
+}
+.aboutus{
+    background-color: #98D7C2;
+    height:150px;
+    width: 100%;
+    position:absolute;
+    margin-top:800px;
+}
+.btnvisit{
+    padding:10px;
+    margin-left:150px;
+    margin-top: 60px;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+.l_abt{
+    margin-top: 8px;
+    float:left;
+    width: 40%;
+    display: inline-block;
+}
+.r_abt{
+    margin-top: 20px;
+    float:right;
+    width:60%;
+    display: inline-block;
+}
+#contacts{
+    background-color: #98D7C2;
+    height:150px;
+    width: 100%;
+    position:absolute;
+    margin-top:1170px;
+}
+#contacts ul {
+    padding: 0;
+    list-style: none; 
+}
+#contacts li {
+    display: inline; 
+    margin-right: 20px; 
+    font-size: 1.2em; 
+    color: black; 
+}

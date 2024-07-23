@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Doctor Selection</title>
+<style>
+     body {
+        background-color: rgb(189, 250, 189);
+  
+    }
+    header{
+        padding: 5px;
+        font-size: 20px;
+        margin-left: 100px;
+        font-size: 2em;
+    }
+    .comp{
+        width: 81%;
+        position: absolute;
+        margin-left: 250px;
+        background-color: rgb(189, 250, 189);
+    
+    }
+    *{
+        /* background-color: #DDFFE7; */
+        /* background-color: #98D7C2; */
+    }
+    h4{
+        margin-bottom:100px;
+    }
+    .modal-content {
+        border-width: 10px; /* Set the border width */
+        border-style: solid; /* Set the border style (solid, dashed, etc.) */
+        border-color: #000; /* Set the border color */
+    }
+    .form-group {
+    margin-bottom: 15px; /* Add some spacing between form groups */
+}
+
+label {
+    display: inline-block;
+    width: 100px; /* Set a fixed width for labels */
+    font-weight: bold;
+}
+
+input[type="date"],
+select {
+    width: 200px; /* Set a width for input fields and select dropdowns */
+    padding: 5px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+button.btn2, button.btn3 {
+    width: 150px; /* Set width for buttons */
+    padding: 5px;
+    margin: 0 auto;
+    display: block;
+}
+.btn1 {
+    display: block;
+    padding: 8px 20px;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 auto; 
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff; /* Button color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn1:hover {
+    background-color: #0056b3; /* Button color on hover */
+}
+
+.btn1:focus {
+    outline: none; /* Remove focus outline */
+}
+ 
+
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+</head>
+<body>
+
+<div class="comp">
+    <a href="#" class="btn1" id="add" data-toggle="modal" data-target="#addModal">Book Appointment</a>
+    <table id='example'  class="table table-bordered table-striped dataTable no-footer dtr-inline" style="background-color:#DDFFE7">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Specialist</th>
+                <th>Doctor name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <!-- <th>Report</th> -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <!-- <tfoot>
+            <tr>
+                <td colspan="6" class="text-center">No appointments found</td>
+            </tr>
+        </tfoot> -->
+       
+    </table>
+ 
+ 
+</div>
+
+<div class="modal fade" id="addModal" role="dialog" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book appointment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        <div class="modal-body" style="background-color:#DDFFE7">
+                <form onsubmit="return false;" id="edit-form">
+                    <div class="form-group" style="background-color:#DDFFE7">
+                        <label for="specialist">Specialist:</label>
+                        <select id="specialist" name="specialist">
+                            <option default selected disabled>Select specialist</option>
+                            <option value="Cardiologist">Cardiologist</option>
+                            <option value="Endocrinologist">Endocrinologist</option>
+                            <option value="ENT">ENT</option>
+                            <option value="Dermatalogist">Dermatologist</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Neurologist">Neurologist</option>
+                            <option value="Pulmonology">Pulmonology</option>
+                        </select>
+                        <br>
+                    </div>
+                    
+                    <div class="form-group" id="doctor-group">
+                        <label for="doctor">Doctor:</label>
+                        <select id="doctorList" name="doctor">
+                            <option default selected disabled>Select doctor</option>
+                        </select><br>
+                    </div> 
+                    
+                    <div class="form-group" id="date-slot-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date"><br>
+                        <br>
+                        <label for="slot">Slot:</label>
+                        <select id="slot" name="slot">
+                            <option default selected disabled>Select slot</option>
+                        </select><br>
+                    </div>
+                    
+               <button type="submit" class="btn2" id="add-submit" style="width:270px; margin: 0 100px;" onclick="register()">Submit</button>
+                    
+            <div class="modal-footer">
+         <button type="button" class="btn3" style="background-color:rgb(15, 216, 223); width:270px; margin: 0 80px;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="appointment.js"></script>
+</body>
+
+</html>

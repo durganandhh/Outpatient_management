@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Form</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            background-color: #e4f1f7;
+        }
+        .container {
+            background-color: #dbf2f7;
+            height: 300px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .lab {
+            color: #13005A;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        .ast {
+            color: red;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .btn {
+            background-color: #6C00FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        #cancelBtn {
+            background-color: red;
+        }
+        h3 {
+            color: #13005A;
+            text-align: center;
+            margin-top: 0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>ADD DOCTORS</h3>
+        <div class="comp">
+            <form id="profileForm">
+                <label class="lab">Name <span class="ast">*</span></label>
+                <input type="text" name="name" placeholder="Enter Doctor name" class="form-control" required>
+                <span class="error-message" id="nameError"></span>
+
+                <label class="lab">Specialist <span class="ast">*</span></label>
+                <select name="specialist" class="form-control" required>
+                    <option value="" disabled selected>Select the specialization</option>
+                    <option value="Cardiology">Cardiologist</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Psychiatry">Psychiatry</option>
+                    <option value="Radiology">Radiology</option>
+                    <option value="Surgery">Surgery</option>
+                    <option value="Urology">Urology</option>
+                </select>
+                <span class="error-message" id="specialistError"></span>
+
+                <label class="lab">Doctor Id <span class="ast">*</span></label>
+                <input type="text" name="doctorId" placeholder="Enter the Doctor Id" maxlength="10" class="form-control" required>
+                <span class="error-message" id="doctorIdError"></span>
+
+                <label class="lab">Password <span class="ast">*</span></label>
+                <input type="password" name="password" placeholder="Enter the Password" maxlength="10" class="form-control" required>
+                <span class="error-message" id="passwordError"></span>
+
+                <label class="lab">Email <span class="ast">*</span></label>
+                <input type="email" name="email" placeholder="Enter the Email" class="form-control" required>
+                <span class="error-message" id="emailError"></span>
+
+                <label class="lab">Address <span class="ast">*</span></label>
+                <textarea name="address" class="form-control" placeholder="Enter the Address" required></textarea>
+                <span class="error-message" id="addressError"></span>
+
+                <div class="btn-container">
+                    <button type="button" class="btn btn-primary" onclick="add()">Add</button>
+                    <button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function add() {
+            var name = document.querySelector('input[name="name"]').value;
+            var specialist = document.querySelector('select[name="specialist"]').value; // Corrected selector for specialist
+            var doctorId = document.querySelector('input[name="doctorId"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+            var email = document.querySelector('input[name="email"]').value;
+            var address = document.querySelector('textarea[name="address"]').value;
+
+            var doctorData = {
+                name: name,
+                specialist: specialist,
+                doctorId: doctorId,
+                password: password,
+                email: email,
+                address: address
+            };
+
+            fetch('http://localhost:8080/Doctor/addDoc', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(doctorData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert('Doctor added successfully!');
+                document.getElementById("profileForm").reset(); 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the doctor.');
+            });
+        }
+
+        document.getElementById("cancelBtn").addEventListener("click", function() {
+            window.location.href = "adminMenu.html";
+        });
+    </script>
+</body>
+</html>

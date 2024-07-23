@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <style>
+            body{
+               overflow: hidden;
+            }
+            
+            .whole{
+                width:100%;
+                height:828px;
+                overflow:hidden;
+                background:linear-gradient(to top, #DDFFE7,  #98D7C2);
+            }
+            section{
+                width:80%;
+                height:700px;
+                margin:auto;
+                margin-top:50px;
+                margin-right:10px;
+            }
+            
+            .article2 {
+                width: 40%;
+                height:510px;
+                border-radius:15px;
+                display: inline-block;
+                margin-left: 200px;;
+                background-color: rgba(255, 255, 255, 0.5);
+            }
+            .article2 h4{
+                text-align:center;
+                font-family:arial;
+                margin-top:20px;
+                margin-bottom:10px;
+                font-weight:bold;
+            } 
+            .article2 input {
+                border: none;
+                border-bottom: 1px solid grey;
+                background-color: transparent;
+                margin:30px 40px;
+                width: 80%; 
+                /* padding: 5px 0px; */
+                box-sizing: border-box; 
+            }
+            input:focus{
+                outline:none;
+                border-bottom:1px solid black;
+            }
+            .button{
+                background-color:#374047;
+                color:white;
+                border:none;
+                margin:25px 40px;
+                width: 80%; 
+                padding: 5px 0px;
+            }
+            .article2 p{
+                margin:10px 40px;
+                width: 80%; 
+            } 
+            
+             
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body >
+        <div class="whole">
+            <section>
+                <article class="article2">
+                    <h4>Register</h4>
+                    <input type="email" name="email" id="email" placeholder="Email">
+                    <!-- <input type="text" name="username" id="username" placeholder="Username"> -->
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <input type="password" name="confrmpassword" id="confrmpassword" placeholder="confirm Password">
+                  
+                    <button class="button" id="save" onclick="register()">Submit</button>
+                  <!-- <div id="result" style="text-align: center;">
+                      hello
+                  </div> -->
+                </article>
+            </section>
+        </div>
+
+    </body>
+    <script>
+  
+        function register() {
+            console.log("function calling")
+            var email = document.getElementById("email").value;   
+            // var name = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+            var confirmpass = document.getElementById("confrmpassword").value;
+            var loginType='user';
+            console.log(email)
+            console.log(name)
+            console.log(pass)
+            console.log(confirmpass)
+            console.log(loginType)
+            var registerObject = {
+                email: email,
+                // username:name,
+                password: pass,
+                confrmpassword:confirmpass,
+                loginType,
+            }
+
+            console.log(registerObject);
+
+            fetch('http://localhost:8080/signup/sign', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(registerObject),
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                if(data === 'Success'){
+                window.location.href='./logintry.html';}
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while logging in');
+            });
+        }
+
+        </script>
+</html>
+

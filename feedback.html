@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Module Feedback</title>
+<style>
+ 
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #DDFFE7;
+    }
+    .container {
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+    h1 {
+        text-align: center;
+    }
+    form {
+        margin-top: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+.container button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;}
+
+.container button:hover {
+    background-color: #d32f2f; /* Darker red color on hover */
+}
+
+</style>
+</head>
+<body>
+
+<div class="container"> 
+    <h1>Feedback</h1>
+    <form id="feedbackForm">
+        <label for="feedbackType">Select feedback type:</label>
+        <select id="feedbackType" name="feedbackType">
+            <option value="default">Choose an option</option>
+            <option value="easeOfUse">Doctor</option>
+            <option value="suggestions">Suggestions for Improvement</option>
+            <option value="bugs">Report Bugs/Issues</option>
+            <option value="other">Other</option>
+        </select>
+
+        <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback here..." required></textarea>
+        <button style=" margin-left:250px;" onclick="feedbackSubmit()">submit</button>
+        <button onclick="closeForm()">Close</button>
+    </form>
+</div>
+
+
+
+</body>
+<script>
+
+
+       function feedbackSubmit() {
+                
+                console.log("Reached function.....")
+    
+            const mail = addon;
+            const feedtype = document.getElementById("feedbackType").value;
+                var description = document.getElementById("feedback").value;
+                
+                console.log(mail);
+                console.log(feedtype);
+                console.log(description);
+
+                var feedBack = {
+                    userId:addon,
+                    mail: mail,
+                    feedBackType: feedtype,
+                    feedBackDesc:description
+
+                }
+    
+                console.log(feedBack);
+    
+                fetch('http://localhost:8080/feedBack/addFeedBack', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify(feedBack),
+                })
+                .then(response => response.text())
+                .then(data => {
+                   
+                   
+                    console.log(data);
+                    
+             
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while saving');
+                });
+            }
+
+   function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var addon = getParameterByName('mail');
+    console.log(addon);
+
+    
+function closeForm() {
+
+    var container = document.querySelector('.container');
+
+    container.style.display = 'none';
+}
+
+   
+</script>
+</html>

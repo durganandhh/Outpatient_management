@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+           
+.profile-container {
+                display: flex;
+                background-color: #f7f7f7;
+                padding: 20px; 
+            }
+ 
+            .profile-left {
+                margin-right: 20px; 
+ 
+            .profile-pic {
+                width: 220px;
+                height: 220px;
+                margin: 0 auto; 
+               
+                border-radius: 50%; 
+                overflow: hidden; 
+            }
+ 
+            .profile-name {
+                margin-top: 10px; 
+                text-align: center; 
+            }
+ 
+            .profile-right {
+                flex: 1; 
+            }
+ 
+            .profile-table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+ 
+            .profile-table th, .profile-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+ 
+            .profile-table th {
+                background-color: #f2f2f2; 
+            }
+            body{
+        background-color: #DDFFE7;
+    }
+        </style>
+    </head>
+    <body>
+        <article id='art2'>
+            <div class="profile-container">
+        
+                <div class="profile-right">
+                    <div class="comp">
+                        <table class="profile-table">
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Detail</th>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td id="user-name"></td>
+                            </tr>
+                          
+                            <tr>
+                                <td>Gender</td>
+                                <td id="user-gender"></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td id="user-mobile"></td>
+                            </tr>
+                            <tr>
+                                <td>Bloodgroup</td>
+                                <td id="user-bloodGroup"></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td id="user-address"></td>
+                            </tr>
+                        </table>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editModal" style='margin-top:20px;'>Edit Profile</button>
+                        <button type="button"  style="float: right;"  >view profile</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <div class="modal fade" id="editModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Profile</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="edit_name" placeholder="Name">
+                            </div>
+                        
+                            <div class="form-group">
+                                <select id="edit_gender" class="form-control">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="edit_mobile" placeholder="Mobile Number">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="edit_address" placeholder="Address">
+                            </div>
+                            <div class="form-group">
+                                <select id="edit_bloodGroup" class="form-control">
+                                    
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" onclick="updateProfile()">Update</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script> 
+    // window.onload= fetchUserDetails();
+    function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var checkValue = getParameterByName('mail');
+console.log(checkValue);
+    
+
+    function updateProfile() {
+        const updatedDetail = {
+            // email: document.getElementById('edit_email').value,
+            name: document.getElementById('edit_name').value,
+            gender: document.getElementById('edit_gender').value,
+            mobile: document.getElementById('edit_mobile').value,
+            address: document.getElementById('edit_address').value,
+            bloodGroup: document.getElementById('edit_bloodGroup').value,
+            userId:checkValue
+        };
+        fetch('http://localhost:8080/profile/addpatprofile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedDetail)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Profile updated:', data);
+            document.getElementById('user-name').textContent = data.name;
+    // document.getElementById('user-email').textContent =  data.email;
+    document.getElementById('user-gender').textContent =  data.gender;
+    document.getElementById('user-mobile').textContent =  data.mobile;
+    document.getElementById('user-address').textContent =  data.address;
+    document.getElementById('user-bloodGroup').textContent =  data.bloodGroup;
+    
+        
+        })
+        .catch(error => {
+            console.error('Error updating profile:', error);
+
+        });
+    }
+    
+
+    $(document).ready(function() {
+        fetchUserDetails();
+    });
+function fetchUserDetails() {
+    fetch(`http://localhost:8080/profile/getpatprofile`,{
+    method: 'GET',
+           
+        })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(detail => {
+                if(detail.userId==checkValue){
+                populateForm(detail);} 
+                else {
+                console.log('No details found for this user');
+                clearForm();
+            }
+
+            
+        })
+    })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+
+        });
+}
+
+function clearForm() {
+    document.getElementById('edit_name').value = '';
+    // document.getElementById('edit_email').value = '';
+    document.getElementById('edit_gender').value = '';
+    document.getElementById('edit_mobile').value = '';
+    document.getElementById('edit_address').value = '';
+    document.getElementById('edit_bloodGroup').value = '';
+
+
+    document.getElementById('user-name').textContent = '';
+    // document.getElementById('user-email').textContent = '';
+    document.getElementById('user-gender').textContent = '';
+    document.getElementById('user-mobile').textContent = '';
+    document.getElementById('user-address').textContent = '';
+    document.getElementById('user-bloodGroup').textContent = '';
+}
+function populateForm(data) {
+    document.getElementById('edit_name').value = data.name;
+    // document.getElementById('edit_email').value =data.email;
+    document.getElementById('edit_gender').value = data.gender;
+    document.getElementById('edit_mobile').value = data.mobile;
+    document.getElementById('edit_address').value =data.address;
+    document.getElementById('edit_bloodGroup').value = data.bloodGroup;
+
+    document.getElementById('user-name').textContent = data.name;
+    // document.getElementById('user-email').textContent = data.email;
+    document.getElementById('user-gender').textContent = data.gender;
+    document.getElementById('user-mobile').textContent = data.mobile;
+    document.getElementById('user-address').textContent = data.address;
+    document.getElementById('user-bloodGroup').textContent = data.bloodGroup;
+}
+
+</script>
+    </html>

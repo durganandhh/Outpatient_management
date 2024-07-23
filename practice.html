@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    
+         #container{
+            display: flex;
+            flex-direction: column;
+            background-color:brown;
+            
+         }
+         #two{
+            flex:1;
+            order:1;
+            border:10px;
+            background-color:yellow;
+         }
+         #one{
+            flex:3;   
+            order:2;
+            border:10px;
+            background-color:red;
+            position:absolute;
+            top:10px;;
+            left:400px;
+            animation: moveText 1s linear infinite
+           
+         }
+         @keyframes moveText {
+            0% {
+                right: -100%; 
+            }
+            100% {
+                right: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="one" ><p>hello</p></div>
+        <div id="two"><p>welcome</p></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Form Example</title>
+<style>
+    /* Styles for the form */
+    body {
+        background-color: #98D7C2;
+    }
+
+    .form-container {
+        margin-top: 100px;
+        border: 1px solid black;
+        padding: 40px;
+        max-width: 400px;
+        margin: auto;
+        background-color: #DDFFE7;
+    }
+
+    .form-field {
+        margin-bottom: 10px;
+    }
+
+    .form-field label {
+        display: block;
+    }
+
+    .form-field input,
+    .form-field select {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .form-actions {
+        text-align: center;
+    }
+
+    .details {
+        margin-left: 500px;
+        width: 300px;
+        background-color: #F2F2F2;
+        border: 1px solid #DDD;
+        padding: 10px;
+    }
+
+    .edit-button {
+    text-align: center;
+    margin-top: 10px;
+    display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="form-container" id="formContainer">
+
+    <form id="myForm">
+        <div class="form-field">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" disabled>
+        </div>
+        <div class="form-field">
+            <label for="email">Email:</label>
+            <input type="email" id="mail" name="mail" disabled>
+        </div>
+        <div class="form-field">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" disabled>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" id="mobile" name="mobile" disabled>
+        </div>
+        <div class="form-field">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" disabled></textarea>
+        </div>
+        <div class="form-field">
+            <label for="bloodgroup">Blood Group:</label>
+            <select id="bloodGroup" name="bloodGroup" disabled>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </div>
+        <div class="form-actions">
+            <button id="editBtn" type="button">Edit</button>
+            <button id="saveBtn" type="submit" style="display:none">Save</button>
+        </div>
+    </form>
+</div>
+
+<!-- <div class="details" id="details" style="display:none">
+    <h2>Details</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Email:</strong> john@example.com</p>
+    <p><strong>Gender:</strong> Male</p>
+    <p><strong>Mobile Number:</strong> 1234567890</p>
+    <p><strong>Address:</strong> 123 Main St, City, Country</p>
+    <p><strong>Blood Group:</strong> A+</p>
+</div> -->
+
+<script>
+    window.onload = function() {
+      fetchSavedDetails();
+      document.getElementById('editBtn').addEventListener('click', enableEditing);
+      document.getElementById('myForm').addEventListener('submit', saveForm);
+  };
+  
+  function enableEditing() {
+      console.log("Enabling editing...");
+      var formContainer = document.getElementById('formContainer');
+      // var detailsContainer = document.getElementById('details');
+  
+      formContainer.style.display = 'block';
+      // detailsContainer.style.display = 'none';
+  
+      var inputs = document.querySelectorAll('#myForm input, #myForm select, #myForm textarea');
+      inputs.forEach(function(input) {
+          input.removeAttribute('disabled');
+      });
+  
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('saveBtn').style.display = 'block';
+  }
+  
+  
+  
+      function saveForm(event) {
+          event.preventDefault();
+  
+          var name = document.getElementById('name').value;
+          var email = document.getElementById('mail').value;
+          var gender = document.getElementById('gender').value;
+          var mobile = document.getElementById('mobile').value;
+          var address = document.getElementById('address').value;
+          var bloodGroup = document.getElementById('bloodGroup').value;
+  
+          var patientdetail = {
+              name: name,
+              email: email,
+              gender: gender,
+              bloodGroup: bloodGroup,
+              address: address,
+              mobile: mobile
+          };
+  
+    //       fetch('http://localhost:8080/mydetails/mydetails', {
+    //           method: 'POST',
+    //           headers: {
+    //               'Content-Type': 'application/json',
+    //           },
+    //           body: JSON.stringify(patientdetail),
+    //       })
+    //       .then(response => {
+    //           if (!response.ok) {
+    //               throw new Error('Network response was not ok');
+    //           }
+    //           return response.text();
+    //       })
+    //       .then(data => {
+    //           // Check if the response indicates success
+    //           if (data === 'Success') {
+    //               alert('Details saved successfully');
+    //           } else {
+    //               throw new Error('Failed to save details');
+    //           }
+    //       })
+    //       .catch(error => {
+    //           console.error('Error:', error);
+    //           alert('An error occurred while saving details');
+    //       });
+    //   }
+  
+    //   function fetchSavedDetails() {
+    //       fetch('http://localhost:8080/patientMyDetail', {
+    //           method: 'GET',
+    //           headers: {
+    //               'loggedInEmail': localStorage.getItem('loggedInEmail'),
+    //           },
+    //       })
+    //       .then(response => {
+    //           if (!response.ok) {
+    //               throw new Error('Network response was not ok');
+    //           }
+    //           return response.json();
+    //       })
+    //       .then(data => {
+    //           if (data) {
+    //               displaySavedDetails(data);
+    //           } else {
+    //               enableEditing();
+    //           }
+    //       })
+    //       .catch(error => {
+    //           console.error('Error:', error);
+    //           alert('An error occurred while fetching saved details');
+    //       });
+    //   }
+  
+      function displaySavedDetails(data) {
+          document.getElementById('name').value = data.name;
+          document.getElementById('mail').value = data.email;
+          document.getElementById('gender').value = data.gender;
+          document.getElementById('mobile').value = data.mobile;
+          document.getElementById('address').value = data.address;
+          document.getElementById('bloodGroup').value = data.bloodGroup;
+      }
+  </script>
+
+</body>
+</html>
